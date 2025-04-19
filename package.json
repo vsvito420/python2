@@ -1,0 +1,24 @@
+{
+  "name": "python-course-ai",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev:worker": "wrangler dev",
+    "deploy": "vite build && wrangler publish"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "openai": "^4.0.0",
+    "monaco-editor": "^0.40.0",
+    "pyodide": "^0.23.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.9",
+    "wrangler": "^3.5.0"
+  }
+}

@@ -1,0 +1,21 @@
+name = "python-course-ai"
+main = "functions/api/index.js"
+compatibility_date = "2023-09-04"
+
+[site]
+bucket = "./dist"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+# KV Namespace for storing course data
+# kv_namespaces = [
+#   { binding = "COURSE_DATA", id = "your-kv-namespace-id", preview_id = "your-preview-kv-namespace-id" }
+# ]
+
+# Secret for API key (add with: wrangler secret put REQUESTY_API_KEY)
+# [secrets]
+# REQUESTY_API_KEY
