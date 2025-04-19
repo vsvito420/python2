@@ -108,13 +108,26 @@ export default {
       }
       
       // Initialize Pyodide for running Python code in the browser
+      loadPyodideRuntime();
+    });
+    
+    // Function to load Pyodide runtime
+    const loadPyodideRuntime = async () => {
+      output.value = 'Loading Python runtime... This may take a moment.';
+      
       try {
-        pyodide.value = await loadPyodide();
+        // Load Pyodide with a specific URL to ensure we get the right version
+        pyodide.value = await loadPyodide({
+          indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/"
+        });
+        
+        output.value = 'Python runtime loaded successfully. You can now run your code.';
         console.log('Pyodide loaded successfully');
       } catch (error) {
         console.error('Failed to load Pyodide:', error);
+        output.value = `Error loading Python runtime: ${error.message}\nPlease refresh the page and try again.`;
       }
-    });
+    };
     
     onUnmounted(() => {
       if (editor.value) {
@@ -125,8 +138,13 @@ export default {
     // Run Python code in the browser using Pyodide
     const runCode = async () => {
       if (!pyodide.value) {
-        output.value = 'Python runtime is not loaded yet. Please try again in a moment.';
-        return;
+        output.value = 'Python runtime is not loaded yet. Attempting to load...';
+        await loadPyodideRuntime();
+        
+        if (!pyodide.value) {
+          output.value = 'Failed to load Python runtime. Please refresh the page and try again.';
+          return;
+        }
       }
       
       isRunning.value = true;
@@ -138,11 +156,18 @@ export default {
         // Capture stdout
         pyodide.value.setStdout({
           batched: (stdout) => {
-            output.value = stdout;
+            output.value = stdout || 'Code executed successfully, but produced no output.';
           }
         });
         
+        // Run the code
         await pyodide.value.runPythonAsync(code);
+        
+        // If no output was captured, provide a message
+        if (!output.value || output.value === 'Running code...') {
+          output.value = 'Code executed successfully, but produced no output.';
+        }
+        
         codeRun.value = true;
       } catch (error) {
         output.value = `Error: ${error.message}`;
