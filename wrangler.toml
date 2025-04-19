@@ -2,8 +2,18 @@ name = "python-course-ai"
 main = "functions/api/index.js"
 compatibility_date = "2023-09-04"
 
+# Configuration for Cloudflare Pages
 [site]
 bucket = "./dist"
+# The directory to upload to Cloudflare Pages
+
+# Routes for your application
+# routes = [
+#   { pattern = "api/*", zone_name = "your-zone-name" }
+# ]
+
+[build]
+command = "npm run build"
 
 [env.production]
 vars = { ENVIRONMENT = "production" }

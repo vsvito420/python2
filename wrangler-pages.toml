@@ -1,0 +1,15 @@
+name = "python-course-ai"
+compatibility_date = "2023-09-04"
+
+# Configuration for Cloudflare Pages
+pages_build_output_dir = "dist"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.preview]
+vars = { ENVIRONMENT = "preview" }
+
+# Secret for API key (add with: wrangler secret put REQUESTY_API_KEY)
+# [secrets]
+# REQUESTY_API_KEY

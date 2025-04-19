@@ -17,7 +17,7 @@ export async function evaluateCode(code, lessonId, output, apiKey) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': 'https://python-course-ai.pages.dev', // Update with your actual domain
+        'HTTP-Referer': 'https://python-course-ai.pages.dev', // Main domain for the Pages project
         'X-Title': 'Python Course AI'
       },
       body: JSON.stringify({
